@@ -4,7 +4,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Single post page</title>
-    <link rel="stylesheet" href="/style.css">
 </head>
 <body>
     <%- include('partials/header.ejs') %>
@@ -19,7 +18,6 @@
             </p>
         </div>
         <h2><%= posts.create_time %></h2>
-        <h3>Likes: <%= posts.likes %></h3>
         <a class="delete" data-del="<%= posts.id %>">Delete</a>
     </div>
     <script>
