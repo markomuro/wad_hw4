@@ -4,10 +4,33 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Posts page</title>
+    <link href="style.css" rel="stylesheet" type="text/css">
 </head>
 <body>
     <%- include('partials/header.ejs') %>
-    <h2>testing post page</h2>
+    <div class="posts list">
+        <h2>All posts</h2>
+        <% if(posts.length> 0) { %>
+            <% posts.forEach(post=> { %>
+                <a class="singlepost" href="/singlepost/<%= post.id %>">
+                    <h3 class="title">
+                        <%= post.title %>
+                    </h3>
+                    <p class="body">
+                        <%= post.body %>
+                    </p>
+                    <p class="create_time">
+                        <%= post.time %>
+                    </p>
+                    <p>
+                        <%= post.likes %>
+                    </p>
+                </a>
+                <% }); %>
+                    <% } else{ %>
+                        <p>You did not post anything!</p>
+                        <% } %>
+    </div>
     <%- include('partials/footer.ejs') %>
     
 </body>

@@ -4,6 +4,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add new post</title>
+    <link href="style.css" rel="stylesheet" type="text/css">
 </head>
 <body>
     <%- include('partials/header.ejs') %>
@@ -15,9 +16,10 @@
                 <input type="text" id="title" name="titlex" required><br><br>
                 <label for="body">Post body:</label>
                 <input type="text" id="body" name="bodyx" required><br><br>
-                <label for="create_time">Post time:</label>
+                <label for="time">Post time:</label>
                 <input type="text" id="time" name="create_timex" required><br><br>
-
+                <!-- <label for="like">Post likes:</label>
+                <input type="text" id="like" name="likex" required><br><br> -->
                 <button>Submit</button>
             </form>
         </div>
