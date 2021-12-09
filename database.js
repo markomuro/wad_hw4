@@ -4,7 +4,7 @@ const pool = new Pool({
  //change whatever pasw you have
  password: "password",
  //change whatever database name you have
- database: "wad21",
+ database: "wad21_hw4",
  host: "localhost",
  port: "5432"
 });
