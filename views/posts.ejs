@@ -1,14 +1,47 @@
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Posts page</title>
-</head>
+
+<%- include('partials/head.ejs') %>
+
 <body>
     <%- include('partials/header.ejs') %>
-    <h2>testing post page</h2>
+
+
+    <section class="posts">
+
+        <% if (fetched.length > 0) { %>
+        <% fetched.forEach(fetch => { %>
+        <div class="post">
+            <a class="singlepost" href="/singlepost/<%= fetch.id %>">
+                <div class="facelogo">
+                    <p><%= fetch.author %></p>
+                    <!-- <p> fetch.create_time %></p> -->
+                </div>
+
+                <div class="content_picture">
+                    <img src=<%- fetch.image1 %> />
+                </div>
+                <div>
+                    <p><%= fetch.body %></p>
+                </div>
+                <div class="like">
+                    <img src=<%- fetch.image2 %> />
+                    <p>
+                        <%= fetch.counter %>
+                    </p>
+                </div>
+            </a>
+        </div>
+        <br />
+        <% }) %>
+        <% } else { %>
+        <p>You did not post anything...</p>
+        <% } %>
+
+    </section>
+
+
     <%- include('partials/footer.ejs') %>
-    
+
 </body>
+
 </html>
