@@ -88,7 +88,6 @@ app.post('/posts', async (req, res) => {
         let random = Math.floor(Math.random() * 98) + 1;
         let number = random.toString();
         let url = 'https://picsum.photos/1024/7' + number;
-        console.log(url);
         console.log(post);
         const newpost = await pool.query(
             "INSERT INTO posts(author, body, image1, image2, create_time, counter) values ($1, $2, $3, $4, $5, $6) RETURNING * ", [post.titlex, post.bodyx, url , 'https://image.similarpng.com/very-thumbnail/2020/06/Like-button-blue-facebook-transparent-PNG.png', post.create_timex, 0]
