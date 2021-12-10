@@ -14,7 +14,7 @@
             <a class="singlepost" href="/singlepost/<%= fetch.id %>">
                 <div class="facelogo">
                     <p><%= fetch.author %></p>
-                    <!-- <p> fetch.create_time %></p> -->
+                    <p><%= fetch.create_time.toISOString().split('T')[0]; %></p>
                 </div>
 
                 <div class="content_picture">
@@ -28,10 +28,11 @@
             </a>
             <div class="like">
                 <img src=<%- fetch.image2 %> />
+                <p>
+                    <%= fetch.counter %>
+                </p>
             </div>
-            <p>
-                <%= fetch.counter %>
-            </p>
+            
         </div>
         <br />
         <% }) %>
