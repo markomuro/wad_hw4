@@ -21,8 +21,18 @@ app.listen(3000, () => {
 });
 
 
-app.get('/', (req, res) => {
-    res.render('posts');
+app.get('/', async (req, res) => {
+    try {
+        console.log("get posts request has arrived");
+
+        const fetched = await pool.query(
+            "SELECT * FROM posts"
+        );
+        res.render('posts', { fetched: fetched.rows, title: 'Home' });
+
+    } catch (err) {
+        console.error(err.message);
+    }  
 });
 app.get('/posts', async (req, res) => {
     //hetkel kommenteerisin välja andmebaasist fetchimise, kuna andmebaasi pole veel postgres
@@ -65,8 +75,8 @@ app.get('/posts/:id', async (req, res) => {
     }
 });
 app.get('/contact', (req, res) => {
-    let kontakt = "hei mina siin";
-    res.render('contact', { contactx: kontakt, title: 'Contact Us' });
+    //let kontakt = "hei mina siin";
+    res.render('contact', {title: 'Contact Us' });
 });
 app.delete('/posts/:id', async (req, res) => {
     try {
