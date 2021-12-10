@@ -74,9 +74,13 @@ body {
     
 }
 .single{
-    padding: 10px;
+    padding: 30px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.7);
     
+}
+.single_body{
+    position: relative;
+    top: 10%;
 }
 
 .content_picture img {
@@ -124,7 +128,7 @@ header {
 }
 
 header ul {
-    position: relative;
+    
     float: none;
     position: absolute;
     top: 5%;
@@ -195,6 +199,21 @@ header nav div {
 
 .dropbtn {
     border: none;
+}
+
+.delete {
+    box-sizing: border-box;
+    border-radius: 5px;
+    height: 35px;
+    width: 10%;
+    margin: 0;
+    padding-top: 5px;
+    border: 1px solid #e0e0e0;
+    cursor: pointer;
+    background-color: #42b983;
+    color: white;
+    font-weight: bolder;
+
 }
 
 footer {

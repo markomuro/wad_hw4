@@ -2,16 +2,15 @@
 
 <%- include('partials/head.ejs') %>
 
-<body>
+<body class="single_body">
     <%- include('partials/header.ejs') %>
-    <h2>This is a single post page</h2>
     <div class="single">
         <div class="face">
             <p><%= fetched.author %></p>
 
         </div>
         <div class="picture">
-            <img src=<%- fetched.image1 %> />
+            <!-- <img src=<- fetched.image1 %> /> -->
         </div>
 
         <div class="body">
@@ -24,11 +23,12 @@
             </p>
         </div>
 
-
-        <a class="delete" data-del="<%= fetched.id %>">Delete</a>
     </div>
+    <br />
+    <button class="delete" data-del="<%= fetched.id %>">Delete</button>
+
     <script>
-        const delreq = document.querySelector('a.delete');
+        const delreq = document.querySelector('button.delete');
         delreq.addEventListener('click', (e) => {
             const endpoint = `/posts/${delreq.dataset.del}`;
             fetch(endpoint, {

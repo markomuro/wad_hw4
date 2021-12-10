@@ -3,15 +3,16 @@ const pool = require('./database');
 const cors = require('cors');
 const app = express();
 
-
 // register the ejs view engine
 app.set('view engine', 'ejs');
-
 
 //without this middleware, we cannot use data submitted by forms
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cors());
+
+
+
 app.use(express.static('public'));
 
 //
@@ -27,10 +28,12 @@ app.get('/posts', async (req, res) => {
     //hetkel kommenteerisin välja andmebaasist fetchimise, kuna andmebaasi pole veel postgres
     try {
         console.log("get posts request has arrived");
+
         const fetched = await pool.query(
             "SELECT * FROM posts"
         );
         res.render('posts', { fetched: fetched.rows, title: 'Home' });
+
     } catch (err) {
         console.error(err.message);
     }
@@ -44,6 +47,7 @@ app.get('/singlepost/:id', async (req, res) => {
             "SELECT * FROM posts WHERE id = $1", [id]
         );
         res.render('singlepost', { fetched: fetched.rows[0], title: 'Post' });
+
     } catch (err) {
         console.error(err.message);
     }
