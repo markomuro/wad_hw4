@@ -122,10 +122,11 @@ app.get('/posts/:id', async (req, res) => {
         const smth = await pool.query(
             "UPDATE posts SET counter = counter + 1 WHERE id = $1", [id]
         );
+
         const fetched = await pool.query(
             "SELECT * FROM posts"
-        );      
-        res.render('posts', {fetched: fetched.rows, title: 'Home'});
+        );
+        res.render('posts', { fetched: fetched.rows, title: 'Home' });
     } catch (err) {
         console.error(err.message);
     }

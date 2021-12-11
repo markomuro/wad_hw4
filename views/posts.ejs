@@ -28,11 +28,12 @@
             </a>
 
 
-            <form class="counter" method="GET" action="/posts/<%= fetch.id %>">
+            <form class="counter" method="GET" action="/posts/<%= fetch.id %>" onclick="this.disabled = true;">
                 <button class=" like">
                     <img class="like-img" src=<%- fetch.image2 %> />
+                    <p><%= fetch.counter %></p>
                 </button>
-                <p><%= fetch.counter %></p>
+
             </form>
 
 
@@ -47,20 +48,6 @@
     </section>
 
     <script>
-        const likeBtn = document.getElementById('like');
-        likeBtn.addEventListener('click', function (e) {
-            console.log('button was clicked');
-            const endpoint = `/posts/${likeBtn.dataset.put}`;
-            fetch(endpoint, { method: 'PUT' })
-                .then(res => res.json())
-                .then(jsonRes => {
-                    // get the element with the number of votes
-                    element.innerText = jsonRes.voteNum
-                })
-
-        });
-
-
 
     </script>
 

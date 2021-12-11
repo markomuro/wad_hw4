@@ -3,6 +3,17 @@
 
 
 /*main page styles*/
+
+p,
+h1,
+h2,
+h3,
+a {
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+    color: black;
+}
 body {
     padding: 100px;
     display: flex;
@@ -67,6 +78,18 @@ body {
     margin-left: 5px;
     cursor: pointer;
 }
+.single-like img {
+    height: 35px;
+    margin-left: 5px;
+    
+}
+
+.like p {
+    color: black;
+    font-size:x-large;
+    padding-left: 5px;
+
+}
 
 .post{
     padding: 10px;
@@ -99,17 +122,6 @@ div.content_picture+div p {
     color: black;
     font-size: large;
     font-style: italic;
-}
-
-p,
-h1,
-h2,
-h3,
-a {
-    margin: 0;
-    padding: 0;
-    text-decoration: none;
-    color: black;
 }
 
 .create-post input{
