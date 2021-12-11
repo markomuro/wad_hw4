@@ -97,7 +97,7 @@ app.delete('/posts/:id', async (req, res) => {
         console.error(err.message);
     }
 });
-app.post('/posts', async (req, res) => {
+app.post('/posts', async (req, res, next) => {
     try {
         const post = req.body;
         let random = Math.floor(Math.random() * 98) + 1;
@@ -114,13 +114,13 @@ app.post('/posts', async (req, res) => {
     }
 });
 
-app.get('/edit/:id', async (req, res, next) => {
+app.get('/posts/:id', async (req, res) => {
     try {
         console.log("upvote a post request has arrived");
         const { id } = req.params;
         console.log(req.params.id);
         const editPost = await pool.query(
-            "UPDATE posts SET counter = 2 WHERE id = $1", [id]
+            "UPDATE posts SET counter = +1 WHERE id = $1", [id]
         );
         res.render('posts');
     } catch (err) {
@@ -128,7 +128,6 @@ app.get('/edit/:id', async (req, res, next) => {
     }
 
 });
-
 
 
 
