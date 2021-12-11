@@ -63,7 +63,7 @@ app.get('/singlepost/:id', async (req, res) => {
         console.error(err.message);
     }
 });
-app.get('/posts/:id', async (req, res) => {
+/* app.get('/posts/:id', async (req, res) => {
     try {
         const { id } = req.params;
         console.log("get a post request has arrived");
@@ -74,7 +74,7 @@ app.get('/posts/:id', async (req, res) => {
     } catch (err) {
         console.error(err.message);
     }
-});
+}); */
 
 
 app.get('/contact', (req, res) => {
