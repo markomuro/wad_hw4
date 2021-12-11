@@ -122,7 +122,7 @@ app.get('/posts/:id', async (req, res) => {
         const editPost = await pool.query(
             "UPDATE posts SET counter = +1 WHERE id = $1", [id]
         );
-        res.render('posts');
+        res.render('posts', {title: 'Home'});
     } catch (err) {
         console.error(err.message);
     }
