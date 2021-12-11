@@ -103,9 +103,9 @@ app.post('/posts', async (req, res, next) => {
         let random = Math.floor(Math.random() * 98) + 1;
         let number = random.toString();
         // let url = 'https://picsum.photos/1024/7' + number;
-        let url = 'https://picsum.photos/id/10' + number + '/200/300';
+        let url = 'https://picsum.photos/id/10' + number + '/400/400';
         console.log(post);
-        const newpost = await pool.query(
+        const fetched = await pool.query(
             "INSERT INTO posts(author, body, image1, image2, counter) values ($1, $2, $3, $4, $5) RETURNING * ", [post.titlex, post.bodyx, url, 'https://image.similarpng.com/very-thumbnail/2020/06/Like-button-blue-facebook-transparent-PNG.png', 0]
         );
         res.redirect('posts');
@@ -119,10 +119,13 @@ app.get('/posts/:id', async (req, res) => {
         console.log("upvote a post request has arrived");
         const { id } = req.params;
         console.log(req.params.id);
-        const editPost = await pool.query(
-            "UPDATE posts SET counter = +1 WHERE id = $1", [id]
+        const smth = await pool.query(
+            "UPDATE posts SET counter = counter + 1 WHERE id = $1", [id]
         );
-        res.render('posts', {title: 'Home'});
+        const fetched = await pool.query(
+            "SELECT * FROM posts"
+        );      
+        res.render('posts', {fetched: fetched.rows, title: 'Home'});
     } catch (err) {
         console.error(err.message);
     }
