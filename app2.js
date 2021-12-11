@@ -114,7 +114,7 @@ app.post('/posts', async (req, res) => {
     }
 });
 
-app.get('/posts/:id', async (req, res, next) => {
+app.get('/edit/:id', async (req, res, next) => {
     try {
         console.log("upvote a post request has arrived");
         const { id } = req.params;
