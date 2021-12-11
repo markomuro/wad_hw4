@@ -112,7 +112,30 @@ a {
     color: black;
 }
 
+.create-post input{
+    
+    width: 100%;
+    margin: 10px 0;
+    padding: 8px;
+}
+.create-post label{
+    
+    margin-top: 15px;
+}
 
+.create-post button{
+    box-sizing: border-box;
+    border-radius: 5px;
+    height: 35px;
+    width: 50%;
+    margin: 0;
+    padding: 5px;
+    border: 1px solid #e0e0e0;
+    cursor: pointer;
+    background-color: #42b983;
+    color: white;
+    font-weight: bolder;
+}
 
 /*header and footer styles*/
 

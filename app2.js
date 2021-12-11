@@ -3,6 +3,7 @@ const pool = require('./database');
 const cors = require('cors');
 const app = express();
 
+
 // register the ejs view engine
 app.set('view engine', 'ejs');
 
@@ -32,16 +33,16 @@ app.get('/', async (req, res) => {
 
     } catch (err) {
         console.error(err.message);
-    }  
+    }
 });
 app.get('/posts', async (req, res) => {
     //hetkel kommenteerisin välja andmebaasist fetchimise, kuna andmebaasi pole veel postgres
     try {
         console.log("get posts request has arrived");
-
         const fetched = await pool.query(
             "SELECT * FROM posts"
         );
+
         res.render('posts', { fetched: fetched.rows, title: 'Home' });
 
     } catch (err) {
@@ -74,10 +75,14 @@ app.get('/posts/:id', async (req, res) => {
         console.error(err.message);
     }
 });
+
+
 app.get('/contact', (req, res) => {
     //let kontakt = "hei mina siin";
-    res.render('contact', {title: 'Contact Us' });
+    res.render('contact', { title: 'Contact Us' });
 });
+
+
 app.delete('/posts/:id', async (req, res) => {
     try {
         console.log(req.params);
@@ -97,19 +102,41 @@ app.post('/posts', async (req, res) => {
         const post = req.body;
         let random = Math.floor(Math.random() * 98) + 1;
         let number = random.toString();
-        let url = 'https://picsum.photos/1024/7' + number;
+        // let url = 'https://picsum.photos/1024/7' + number;
+        let url = 'https://picsum.photos/id/10' + number + '/200/300';
         console.log(post);
         const newpost = await pool.query(
-            "INSERT INTO posts(author, body, image1, image2, counter) values ($1, $2, $3, $4, $5) RETURNING * ", [post.titlex, post.bodyx, url , 'https://image.similarpng.com/very-thumbnail/2020/06/Like-button-blue-facebook-transparent-PNG.png', 0]
+            "INSERT INTO posts(author, body, image1, image2, counter) values ($1, $2, $3, $4, $5) RETURNING * ", [post.titlex, post.bodyx, url, 'https://image.similarpng.com/very-thumbnail/2020/06/Like-button-blue-facebook-transparent-PNG.png', 0]
         );
         res.redirect('posts');
     } catch (err) {
         console.error(err.message)
     }
 });
+
+app.get('/edit/:id', async (req, res, next) => {
+    try {
+        console.log("upvote a post request has arrived");
+        const { id } = req.params;
+        console.log(req.params.id);
+        const editPost = await pool.query(
+            "UPDATE posts SET counter = 2 WHERE id = $1", [id]
+        );
+        res.render('posts');
+    } catch (err) {
+        console.error(err.message);
+    }
+
+});
+
+
+
+
 app.get('/addnew', (req, res) => {
     res.render('addnewpost', { title: 'New' });
 });
 app.use((req, res) => {
     res.status(404).render('404', { title: 'Error' });
 });
+
+
