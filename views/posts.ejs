@@ -10,6 +10,7 @@
 
         <% if (fetched.length > 0) { %>
         <% fetched.forEach(fetch => { %>
+        <% let state = 1; %>
         <div class="post">
             <a class="singlepost" href="/singlepost/<%= fetch.id %>">
                 <div class="facelogo">
@@ -27,19 +28,27 @@
 
             </a>
 
-
-            <form class="counter" method="GET" action="/posts/<%= fetch.id %>">
+            <% if (state) { %>
+                <% state = 0; %>
+            <form class="counter" method="PUT" action="/posts/<%= fetch.id %>">
                 <button class=" like">
                     <img class="like-img" src=<%- fetch.image2 %> />
                 </button>
                 <p><%= fetch.counter %></p>
             </form>
+            <% } else { %>
+                <button class=" like">
+                    <img class="like-img" src=<%- fetch.image2 %> />
+                </button>
+                <p><%= fetch.counter %></p>
+                <% } %>
+            <% }) %>
 
 
 
         </div>
         <br />
-        <% }) %>
+
         <% } else { %>
         <p>You did not post anything...</p>
         <% } %>
@@ -47,9 +56,10 @@
     </section>
 
     <script>
-        const likeBtn = document.getElementById('like');
+        const likeBtn = document.getElementsByClassName('counter');
         likeBtn.addEventListener('click', function (e) {
             console.log('button was clicked');
+            document.getElementsByClassName('counter').disabled = true;
             const endpoint = `/posts/${likeBtn.dataset.put}`;
             fetch(endpoint, { method: 'PUT' })
                 .then(res => res.json())
