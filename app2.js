@@ -1,7 +1,10 @@
+//router part
+
 const express = require('express');
 const pool = require('./database');
 const cors = require('cors');
 const app = express();
+const port = 3000;
 
 
 // register the ejs view engine
@@ -12,16 +15,16 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cors());
 
-
-
 app.use(express.static('public'));
 
-//
-app.listen(3000, () => {
-    console.log("Server is listening to port 3000")
+app.listen(port, () => {
+    //passing variables to string with ${}
+    console.log(`Server is listening to port ${port}`)
 });
 
 
+//controller part?
+//http://localhost:3000
 app.get('/', async (req, res) => {
     try {
         console.log("get posts request has arrived");
@@ -35,20 +38,22 @@ app.get('/', async (req, res) => {
         console.error(err.message);
     }
 });
+
+//http://localhost:3000/posts
 app.get('/posts', async (req, res) => {
-    //hetkel kommenteerisin välja andmebaasist fetchimise, kuna andmebaasi pole veel postgres
     try {
         console.log("get posts request has arrived");
         const fetched = await pool.query(
-            "SELECT * FROM posts"
+            "SELECT * FROM posts ORDER BY id ASC"
         );
-
         res.render('posts', { fetched: fetched.rows, title: 'Home' });
 
     } catch (err) {
         console.error(err.message);
     }
 });
+
+//http://localhost:3000/singlepost/37
 app.get('/singlepost/:id', async (req, res) => {
     try {
         const id = req.params.id;
@@ -63,6 +68,8 @@ app.get('/singlepost/:id', async (req, res) => {
         console.error(err.message);
     }
 });
+
+
 /* app.get('/posts/:id', async (req, res) => {
     try {
         const { id } = req.params;
@@ -97,7 +104,8 @@ app.delete('/posts/:id', async (req, res) => {
         console.error(err.message);
     }
 });
-app.post('/posts', async (req, res, next) => {
+
+app.post('/posts', async (req, res) => {
     try {
         const post = req.body;
         let random = Math.floor(Math.random() * 98) + 1;
@@ -119,14 +127,17 @@ app.get('/posts/:id', async (req, res) => {
         console.log("upvote a post request has arrived");
         const { id } = req.params;
         console.log(req.params.id);
+        const { counter } = req.body;
         const smth = await pool.query(
             "UPDATE posts SET counter = counter + 1 WHERE id = $1", [id]
         );
 
-        const fetched = await pool.query(
-            "SELECT * FROM posts"
-        );
-        res.render('posts', { fetched: fetched.rows, title: 'Home' });
+        /*        const fetched = await pool.query(
+                   "SELECT * FROM posts"
+               );
+        
+               res.render('posts', { fetched: fetched.rows, title: 'Home' });*/
+        res.redirect('/posts');
     } catch (err) {
         console.error(err.message);
     }
